@@ -1,7 +1,9 @@
 package RepositoriesImpl;
 
 import Models.Client;
+import Models.Projet;
 import Repositories.ClientRepository;
+import enums.EtatProjet;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -93,6 +95,28 @@ public class ClientRepoImpl implements ClientRepository {
         }catch(SQLException e){
             e.printStackTrace();
         }
+    }
+
+    public List<Projet> getClientProjects(UUID clientId){
+        String query = "select p.id as projet_id, p.nom_projet, p.marge_beneficiaire, p.cout_total,p.etat_projet from client as c join projet as p on c.id = p.client_id where client_id = ?";
+        List<Projet> projets = new ArrayList<>();
+
+        try(PreparedStatement stmt = conn.prepareStatement(query)){
+            stmt.setObject(1,clientId);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                Projet projet = new Projet();
+                projet.setId(UUID.fromString(rs.getString("projet_id")));
+                projet.setNomProjet(rs.getString("nom_projet"));
+                projet.setMargeBeneficiaire(rs.getDouble("marge_beneficiaire"));
+                projet.setCoutTotal(rs.getDouble("cout_total"));
+                projet.setEtatProjet(EtatProjet.valueOf(rs.getString("etat_projet")));
+                projets.add(projet);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+            return projets;
     }
 
 }
