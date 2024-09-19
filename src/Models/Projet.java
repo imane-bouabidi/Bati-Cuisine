@@ -13,7 +13,7 @@ public class Projet {
     private double coutTotal;
     private EtatProjet etatProjet;
     private Client client;
-    private Devis devis;
+    private List<Devis> devis;
     private List<Composant> composants;
 
     public Projet() {
@@ -76,11 +76,11 @@ public class Projet {
         this.client = client;
     }
 
-    public Devis getDevis() {
+    public List<Devis> getDevis() {
         return devis;
     }
 
-    public void setDevis(Devis devis) {
+    public void setDevis(List<Devis> devis) {
         this.devis = devis;
     }
 

@@ -1,5 +1,7 @@
 package Models;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class Client {
@@ -8,15 +10,14 @@ public class Client {
     private String adresse;
     private String telephone;
     private String estProfessionnel;
-    private Projet projet;
+    private List<Projet> projets;
 
-    public Client(UUID id, String nom, String adresse, String telephone, String estProfessionnel, Projet projet) {
+    public Client(UUID id, String nom, String adresse, String telephone, String estProfessionnel){
         this.id = id;
         this.nom = nom;
         this.adresse = adresse;
         this.telephone = telephone;
         this.estProfessionnel = estProfessionnel;
-        this.projet = projet;
     }
 
     public Client() {
@@ -62,11 +63,11 @@ public class Client {
         this.estProfessionnel = estProfessionnel;
     }
 
-    public Projet getProjet() {
-        return projet;
+    public List<Projet> getProjet() {
+        return projets;
     }
 
-    public void setProjet(Projet projet) {
-        this.projet = projet;
+    public void setProjet(List<Projet> projets) {
+        this.projets = projets;
     }
 }
