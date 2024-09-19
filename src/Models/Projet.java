@@ -11,16 +11,18 @@ public class Projet {
     private double margeBeneficiaire;
     private double coutTotal;
     private EtatProjet etatProjet;
+    private Client client;
 
     public Projet() {
     }
 
-    public Projet(UUID id, String nomProjet, double margeBeneficiaire, EtatProjet etatProjet, double coutTotal) {
+    public Projet(UUID id, String nomProjet, double margeBeneficiaire, EtatProjet etatProjet, double coutTotal, Client client) {
         this.id = id;
         this.nomProjet = nomProjet;
         this.margeBeneficiaire = margeBeneficiaire;
         this.etatProjet = etatProjet;
         this.coutTotal = coutTotal;
+        this.client = client;
     }
 
     public UUID getId() {
@@ -61,5 +63,13 @@ public class Projet {
 
     public void setEtatProjet(EtatProjet etatProjet) {
         this.etatProjet = etatProjet;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }
