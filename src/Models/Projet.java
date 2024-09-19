@@ -2,6 +2,7 @@ package Models;
 
 import enums.EtatProjet;
 
+import java.util.List;
 import java.util.UUID;
 
 public class Projet {
@@ -12,6 +13,8 @@ public class Projet {
     private double coutTotal;
     private EtatProjet etatProjet;
     private Client client;
+    private Devis devis;
+    private List<Composant> composants;
 
     public Projet() {
     }
@@ -71,5 +74,21 @@ public class Projet {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Devis getDevis() {
+        return devis;
+    }
+
+    public void setDevis(Devis devis) {
+        this.devis = devis;
+    }
+
+    public List<Composant> getComposants() {
+        return composants;
+    }
+
+    public void setComposants(List<Composant> composants) {
+        this.composants = composants;
     }
 }
