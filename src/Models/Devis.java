@@ -9,7 +9,6 @@ public class Devis {
     private LocalDate dateEmission;
     private LocalDate dateValidite;
     private boolean accepte;
-
     private Projet projet;
 
     public Devis() {
@@ -56,7 +55,7 @@ public class Devis {
         this.dateValidite = dateValidite;
     }
 
-    public boolean isAccepte() {
+    public boolean getAccepte() {
         return accepte;
     }
 
@@ -71,4 +70,5 @@ public class Devis {
     public void setProjet(Projet projet) {
         this.projet = projet;
     }
+
 }

@@ -1,5 +1,6 @@
 package RepositoriesImpl;
 
+import Database.DbConnection;
 import Models.Client;
 import Models.Projet;
 import Repositories.ClientRepository;
@@ -15,8 +16,8 @@ import java.util.UUID;
 
 public class ClientRepoImpl implements ClientRepository {
     private Connection conn;
-    public ClientRepoImpl(Connection conn) {
-        this.conn = conn;
+    public ClientRepoImpl() {
+        this.conn = DbConnection.getInstance().getConnection();
     }
 
     public List<Client> findAllClients(){
