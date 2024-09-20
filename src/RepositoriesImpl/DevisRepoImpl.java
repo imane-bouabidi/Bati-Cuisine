@@ -20,7 +20,7 @@ public class DevisRepoImpl implements DevisRepository {
     }
 
     ProjetRepoImpl projetImpl = new ProjetRepoImpl();
-
+//here
     public void addDevis(Devis devis){
         String query = "insert into devis values (?,?,?,?,?,?)";
         try(PreparedStatement stmt = conn.prepareStatement(query)){

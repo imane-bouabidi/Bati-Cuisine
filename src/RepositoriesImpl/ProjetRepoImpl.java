@@ -23,7 +23,7 @@ public class ProjetRepoImpl implements ProjetRepository {
     ClientRepoImpl clientImpl = new ClientRepoImpl();
     DevisRepoImpl devisImpl = new DevisRepoImpl();
 
-
+///Comment inserer devis list et composant list
     public void addProjet(Projet projet) {
         String query = "insert into projet values (?,?,?,?,?,?)";
         try(PreparedStatement stmt = conn.prepareStatement(query)){

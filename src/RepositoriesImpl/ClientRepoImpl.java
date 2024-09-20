@@ -60,6 +60,25 @@ public class ClientRepoImpl implements ClientRepository {
         return client;
     }
 
+    public Client findClientByName(String name){
+        String query = "select * from client where name = ?";
+        Client client = null;
+        try(PreparedStatement stmt = conn.prepareStatement(query)){
+            stmt.setString(1, name);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                client.setId(UUID.fromString(rs.getString("id")));
+                client.setNom(rs.getString("nom"));
+                client.setAdresse(rs.getString("adresse"));
+                client.setTelephone(rs.getString("telephone"));
+                client.setEstProfessionnel(rs.getString("estProfessionnel"));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return client;
+    }
+
     public void addClient(Client client){
         String query = "insert into client values (?,?,?,?,?)";
         try(PreparedStatement stmt = conn.prepareStatement(query)){

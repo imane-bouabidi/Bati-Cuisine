@@ -9,6 +9,7 @@ import java.util.UUID;
 public interface ClientRepository {
     List<Client> findAllClients();
     Client findClientById(UUID id);
+    Client findClientByName(String name);
     void addClient(Client client);
     void updateClient(Client client);
     void deleteClient(UUID id);
