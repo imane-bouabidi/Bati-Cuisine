@@ -1,16 +1,22 @@
 package View;
 
+import Models.Projet;
+import Services.ProjetService;
+
 import java.util.Scanner;
+import java.util.UUID;
 
 public class ProjetMenu {
 
-    public static void createProject() {
+    private static ProjetService projetService = new ProjetService();
+    public static Projet createProject(UUID id) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("--- Création d'un Nouveau Projet ---");
         System.out.print("Entrez le nom du projet : ");
         String projectName = scanner.nextLine();
-        System.out.print("Entrez la surface de la cuisine (en m²) : ");
-        double surface = scanner.nextDouble();
-        System.out.println("Projet créé avec succès : " + projectName + " - Surface : " + surface + " m²");
+        System.out.print("Entrez le pourcentage de la marge bénéficière : ");
+        double marge = scanner.nextDouble();
+
+        return projetService.creerProjet(projectName,marge,id);
     }
 }

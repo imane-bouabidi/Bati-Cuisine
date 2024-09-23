@@ -27,12 +27,12 @@ public class ClientRepoImpl implements ClientRepository {
             ResultSet rs = stmt.executeQuery();
             if(rs.next()){
                 Client client = new Client(
-                     UUID.fromString(rs.getString("id")),
                      rs.getString("nom"),
                      rs.getString("adresse"),
                      rs.getString("telephone"),
-                     rs.getString("estProfessionnel")
+                     rs.getBoolean("est_professionnel")
                 );
+                client.setId(UUID.fromString(rs.getString("id")));
                 clients.add(client);
             }
         }catch(SQLException e){
@@ -43,7 +43,7 @@ public class ClientRepoImpl implements ClientRepository {
 
     public Client findClientById(UUID id){
         String query = "select * from client where id = ?";
-        Client client = null;
+        Client client = new Client();
         try(PreparedStatement stmt = conn.prepareStatement(query)){
             stmt.setObject(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -52,7 +52,7 @@ public class ClientRepoImpl implements ClientRepository {
                 client.setNom(rs.getString("nom"));
                 client.setAdresse(rs.getString("adresse"));
                 client.setTelephone(rs.getString("telephone"));
-                client.setEstProfessionnel(rs.getString("estProfessionnel"));
+                client.setEstProfessionnel(rs.getBoolean("est_professionnel"));
             }
         }catch(SQLException e){
             e.printStackTrace();
@@ -61,8 +61,8 @@ public class ClientRepoImpl implements ClientRepository {
     }
 
     public Client findClientByName(String name){
-        String query = "select * from client where name = ?";
-        Client client = null;
+        String query = "select * from client where nom = ?";
+        Client client = new Client();
         try(PreparedStatement stmt = conn.prepareStatement(query)){
             stmt.setString(1, name);
             ResultSet rs = stmt.executeQuery();
@@ -71,7 +71,7 @@ public class ClientRepoImpl implements ClientRepository {
                 client.setNom(rs.getString("nom"));
                 client.setAdresse(rs.getString("adresse"));
                 client.setTelephone(rs.getString("telephone"));
-                client.setEstProfessionnel(rs.getString("estProfessionnel"));
+                client.setEstProfessionnel(rs.getBoolean("est_professionnel"));
             }
         }catch(SQLException e){
             e.printStackTrace();
@@ -79,18 +79,23 @@ public class ClientRepoImpl implements ClientRepository {
         return client;
     }
 
-    public void addClient(Client client){
-        String query = "insert into client values (?,?,?,?,?)";
+    public UUID addClient(Client client){
+        String query = "insert into client(nom,adresse,telephone,est_professionnel) values (?,?,?,?)";
+        UUID clientId = null;
+
         try(PreparedStatement stmt = conn.prepareStatement(query)){
-            stmt.setObject(1, client.getId());
-            stmt.setObject(2, client.getNom());
-            stmt.setObject(3, client.getAdresse());
-            stmt.setObject(4, client.getTelephone());
-            stmt.setObject(5, client.getEstProfessionnel());
-            stmt.executeQuery();
+            stmt.setObject(1, client.getNom());
+            stmt.setObject(2, client.getAdresse());
+            stmt.setObject(3, client.getTelephone());
+            stmt.setObject(4, client.getEstProfessionnel());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                clientId = (UUID) rs.getObject("id");
+            }
         }catch(SQLException e){
             e.printStackTrace();
         }
+        return clientId;
     }
 
     public void updateClient(Client client){

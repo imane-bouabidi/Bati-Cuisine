@@ -10,7 +10,7 @@ public interface ClientRepository {
     List<Client> findAllClients();
     Client findClientById(UUID id);
     Client findClientByName(String name);
-    void addClient(Client client);
+    UUID addClient(Client client);
     void updateClient(Client client);
     void deleteClient(UUID id);
     List<Projet> getClientProjects(UUID id);

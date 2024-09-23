@@ -4,6 +4,7 @@ import Database.DbConnection;
 import Models.Client;
 import Models.Projet;
 import Repositories.ProjetRepository;
+import Services.DevisService;
 import enums.EtatProjet;
 
 import java.sql.Connection;
@@ -20,22 +21,23 @@ public class ProjetRepoImpl implements ProjetRepository {
         this.conn = DbConnection.getInstance().getConnection();
     }
 
-    ClientRepoImpl clientImpl = new ClientRepoImpl();
-    DevisRepoImpl devisImpl = new DevisRepoImpl();
+    public static ClientRepoImpl clientImpl = new ClientRepoImpl();
+    public static DevisService devisService = new DevisService();
 
 ///Comment inserer devis list et composant list
-    public void addProjet(Projet projet) {
-        String query = "insert into projet values (?,?,?,?,?,?)";
+    public UUID addProjet(Projet projet) {
+        String query = "insert into projet(nom_projet,marge_beneficiaire,client_id) values (?,?,?)";
+
         try(PreparedStatement stmt = conn.prepareStatement(query)){
             stmt.setString(1, projet.getNomProjet());
             stmt.setDouble(2, projet.getMargeBeneficiaire());
-            stmt.setDouble(3, projet.getCoutTotal());
-            stmt.setObject(4, projet.getEtatProjet());
-            stmt.setObject(5, projet.getClient().getId());
+            stmt.setObject(3, projet.getClient().getId());
             stmt.executeUpdate();
+
         }catch(SQLException e){
             e.printStackTrace();
         }
+        return projet.getId();
     }
     public void updateProjet(Projet projet) {
 
@@ -57,7 +59,7 @@ public class ProjetRepoImpl implements ProjetRepository {
                 projet.setCoutTotal(rs.getDouble("cout_total"));
                 projet.setEtatProjet(EtatProjet.valueOf(rs.getString("etat_projet")));
                 projet.setClient(clientImpl.findClientById(UUID.fromString(rs.getString("client_id"))));
-                projet.setDevis(devisImpl.getDevisByProjetId(UUID.fromString(rs.getString("id"))));
+//                projet.setDevis(devisImpl.getDevisByProjetId(UUID.fromString(rs.getString("id"))));
             }
         }catch(SQLException e){
             e.printStackTrace();

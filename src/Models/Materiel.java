@@ -1,5 +1,7 @@
 package Models;
 
+import enums.TypeComposant;
+
 import java.util.UUID;
 
 public class Materiel extends Composant{
@@ -9,9 +11,8 @@ public class Materiel extends Composant{
     private double coutUnitaire;
     private double quantite;
 
-    public Materiel(String nom, String typeComposant, double tauxTVA, Projet projet, UUID id, double coutTransport, double coefficientQuantite, double coutUnitaire, double quantite) {
+    public Materiel(String nom, TypeComposant typeComposant, double tauxTVA, Projet projet,double coutTransport, double coefficientQuantite, double coutUnitaire, double quantite) {
         super(nom, typeComposant, tauxTVA, projet);
-        this.id = id;
         this.coutTransport = coutTransport;
         this.coefficientQuantite = coefficientQuantite;
         this.coutUnitaire = coutUnitaire;
@@ -57,4 +58,6 @@ public class Materiel extends Composant{
     public void setQuantite(double quantite) {
         this.quantite = quantite;
     }
+
+
 }

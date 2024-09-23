@@ -9,11 +9,10 @@ public class Client {
     private String nom ;
     private String adresse;
     private String telephone;
-    private String estProfessionnel;
+    private boolean estProfessionnel;
     private List<Projet> projets;
 
-    public Client(UUID id, String nom, String adresse, String telephone, String estProfessionnel){
-        this.id = id;
+    public Client(String nom, String adresse, String telephone, boolean estProfessionnel){
         this.nom = nom;
         this.adresse = adresse;
         this.telephone = telephone;
@@ -55,11 +54,11 @@ public class Client {
         this.telephone = telephone;
     }
 
-    public String getEstProfessionnel() {
+    public boolean getEstProfessionnel() {
         return estProfessionnel;
     }
 
-    public void setEstProfessionnel(String estProfessionnel) {
+    public void setEstProfessionnel(boolean estProfessionnel) {
         this.estProfessionnel = estProfessionnel;
     }
 

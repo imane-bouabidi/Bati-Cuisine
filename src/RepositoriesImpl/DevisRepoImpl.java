@@ -19,7 +19,7 @@ public class DevisRepoImpl implements DevisRepository {
         this.conn = DbConnection.getInstance().getConnection();
     }
 
-    ProjetRepoImpl projetImpl = new ProjetRepoImpl();
+    public static ProjetRepoImpl projetImpl = new ProjetRepoImpl();
 //here
     public void addDevis(Devis devis){
         String query = "insert into devis values (?,?,?,?,?,?)";

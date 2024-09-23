@@ -4,6 +4,8 @@ import Models.Projet;
 import Services.ProjetService;
 
 import java.util.Scanner;
+import java.util.UUID;
+
 public class Main{
 
     public static void main(String[] args) {
@@ -44,11 +46,11 @@ public class Main{
     }
 
     private static void handleNewProject() {
-        ClientMenu.handleClientSelection();
+        UUID clientId = ClientMenu.handleClientSelection();
 
-        ProjetMenu.createProject();
+        Projet p = ProjetMenu.createProject(clientId);
 
-        MaterielMenu.addMaterials();
+        MaterielMenu.addMaterials(p);
 
         MainOeuvreMenu.addMainOeuvre();
 
