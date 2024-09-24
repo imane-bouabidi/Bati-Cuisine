@@ -10,9 +10,10 @@ import java.util.Scanner;
 public class MaterielMenu {
 
     public static MaterielService materielService = new MaterielService();
-    public static void addMaterials(Projet p) {
+    public static double addMaterials(Projet p) {
         Scanner scanner = new Scanner(System.in);
         boolean addingMaterials = true;
+        double materialCost =0;
 
         while (addingMaterials) {
             System.out.print("Entrez le nom du matériau : ");
@@ -21,14 +22,14 @@ public class MaterielMenu {
             double tauxTVA = scanner.nextDouble();
             System.out.print("Entrez la quantité de ce matériau : ");
             double quantity = scanner.nextDouble();
-            System.out.print("Entrez le coût unitaire de ce matériau (€/unité) : ");
+            System.out.print("Entrez le coût unitaire de ce matériau (dh/unité) : ");
             double unitCost = scanner.nextDouble();
-            System.out.print("Entrez le coût de transport de ce matériau (€) : ");
+            System.out.print("Entrez le coût de transport de ce matériau (dh) : ");
             double transportCost = scanner.nextDouble();
             System.out.print("Entrez le coefficient de qualité (1.0 = standard, >1.0 = haute qualité) : ");
             double qualityCoefficient = scanner.nextDouble();
 
-            double materialCost = (quantity * unitCost * qualityCoefficient) + transportCost;
+             materialCost = (quantity * unitCost * qualityCoefficient) + transportCost;
             System.out.println("Matériau ajouté : " + materialName + " - Coût total : " + materialCost);
             materielService.addMateriel(new Materiel(materialName, TypeComposant.MATERIAU,tauxTVA,p,transportCost,qualityCoefficient,unitCost,quantity));
             System.out.print("Voulez-vous ajouter un autre matériau ? (y/n) : ");
@@ -38,5 +39,6 @@ public class MaterielMenu {
                 addingMaterials = false;
             }
         }
+    return materialCost;
     }
 }

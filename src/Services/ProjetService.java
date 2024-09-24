@@ -28,7 +28,8 @@ public class ProjetService {
         projet.setNomProjet(nomProjet);
         projet.setMargeBeneficiaire(marge);
         projet.setClient(rechercherClient(id));
-        projetRepo.addProjet(projet);
+        UUID pId = projetRepo.addProjet(projet);
+        projet.setId(pId);
         return projet;
     }
 

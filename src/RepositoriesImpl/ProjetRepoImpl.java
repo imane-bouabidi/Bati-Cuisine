@@ -24,15 +24,17 @@ public class ProjetRepoImpl implements ProjetRepository {
     public static ClientRepoImpl clientImpl = new ClientRepoImpl();
     public static DevisService devisService = new DevisService();
 
-///Comment inserer devis list et composant list
     public UUID addProjet(Projet projet) {
-        String query = "insert into projet(nom_projet,marge_beneficiaire,client_id) values (?,?,?)";
+        String query = "insert into projet(nom_projet,marge_beneficiaire,client_id) values (?,?,?) returning id";
 
         try(PreparedStatement stmt = conn.prepareStatement(query)){
             stmt.setString(1, projet.getNomProjet());
             stmt.setDouble(2, projet.getMargeBeneficiaire());
             stmt.setObject(3, projet.getClient().getId());
-            stmt.executeUpdate();
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                return UUID.fromString(rs.getString("id"));
+            }
 
         }catch(SQLException e){
             e.printStackTrace();

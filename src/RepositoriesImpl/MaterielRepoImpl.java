@@ -23,13 +23,13 @@ public class MaterielRepoImpl implements MaterielRepository {
         UUID materielId = null;
         try(PreparedStatement stmt = conn.prepareStatement(query)){
             stmt.setString(1, materiel.getNom());
-            stmt.setObject(2, materiel.getTypeComposant());
+            stmt.setObject(2, materiel.getTypeComposant(),java.sql.Types.OTHER);
             stmt.setDouble(3, materiel.getTauxTVA());
-            stmt.setObject(3, materiel.getProjet().getId());
-            stmt.setDouble(3, materiel.getCoutTransport());
-            stmt.setDouble(3, materiel.getCoefficientQuantite());
-            stmt.setDouble(3, materiel.getCoutUnitaire());
-            stmt.setDouble(3, materiel.getQuantite());
+            stmt.setObject(4, materiel.getProjet().getId());
+            stmt.setDouble(5, materiel.getCoutTransport());
+            stmt.setDouble(6, materiel.getCoefficientQuantite());
+            stmt.setDouble(7, materiel.getCoutUnitaire());
+            stmt.setDouble(8, materiel.getQuantite());
             stmt.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();

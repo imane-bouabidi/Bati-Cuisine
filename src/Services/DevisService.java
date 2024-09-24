@@ -12,4 +12,9 @@ public class DevisService {
     public List<Devis> getDevisByProjetId(UUID ProjetId){
         return devisImpl.getDevisByProjetId(ProjetId);
     }
+
+    public void addDevis(Devis devis){
+        devisImpl.addDevis(devis);
+    }
+
 }

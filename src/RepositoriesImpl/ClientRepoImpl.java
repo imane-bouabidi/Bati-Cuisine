@@ -80,17 +80,17 @@ public class ClientRepoImpl implements ClientRepository {
     }
 
     public UUID addClient(Client client){
-        String query = "insert into client(nom,adresse,telephone,est_professionnel) values (?,?,?,?)";
+        String query = "insert into client(nom,adresse,telephone,est_professionnel) values (?,?,?,?) RETURNING id";
         UUID clientId = null;
 
         try(PreparedStatement stmt = conn.prepareStatement(query)){
-            stmt.setObject(1, client.getNom());
-            stmt.setObject(2, client.getAdresse());
-            stmt.setObject(3, client.getTelephone());
-            stmt.setObject(4, client.getEstProfessionnel());
+            stmt.setString(1, client.getNom());
+            stmt.setString(2, client.getAdresse());
+            stmt.setString(3, client.getTelephone());
+            stmt.setBoolean(4, client.getEstProfessionnel());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                clientId = (UUID) rs.getObject("id");
+                clientId = UUID.fromString(rs.getString("id"));
             }
         }catch(SQLException e){
             e.printStackTrace();

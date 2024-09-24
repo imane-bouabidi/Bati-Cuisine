@@ -23,7 +23,7 @@ public class Main{
                     displayExistingProjects();
                     break;
                 case 3:
-                    calculateProjectCost();
+//                    calculateProjectCost();
                     break;
                 case 4:
                     System.out.println("Quitter. Merci d'avoir utilisé l'application !");
@@ -50,17 +50,15 @@ public class Main{
 
         Projet p = ProjetMenu.createProject(clientId);
 
-        MaterielMenu.addMaterials(p);
+        double coutMateriel = MaterielMenu.addMaterials(p);
 
-        MainOeuvreMenu.addMainOeuvre();
+        double coutMain = MainOeuvreMenu.addMainOeuvre(p);
 
-        calculateProjectCost();
+        DevisMenu.calculateProjectCost(coutMateriel,coutMain,p);
     }
 
     private static void displayExistingProjects() {
     }
 
-    private static void calculateProjectCost() {
-    }
 }
 

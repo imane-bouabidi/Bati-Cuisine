@@ -22,14 +22,13 @@ public class DevisRepoImpl implements DevisRepository {
     public static ProjetRepoImpl projetImpl = new ProjetRepoImpl();
 //here
     public void addDevis(Devis devis){
-        String query = "insert into devis values (?,?,?,?,?,?)";
+        String query = "insert into devis(montant_estime,date_emission,date_validite,accepte,projet_id) values (?,?,?,?,?)";
         try(PreparedStatement stmt = conn.prepareStatement(query)){
-            stmt.setObject(1, devis.getId());
-            stmt.setDouble(2, devis.getMontantEstime());
-            stmt.setDate(3, java.sql.Date.valueOf(devis.getDateEmission()));
-            stmt.setDate(4, java.sql.Date.valueOf(devis.getDateValidite()));
-            stmt.setBoolean(5, devis.getAccepte());
-            stmt.setObject(6, devis.getProjet().getId());
+            stmt.setDouble(1, devis.getMontantEstime());
+            stmt.setDate(2, java.sql.Date.valueOf(devis.getDateEmission()));
+            stmt.setDate(3, java.sql.Date.valueOf(devis.getDateValidite()));
+            stmt.setBoolean(4, devis.getAccepte());
+            stmt.setObject(5, devis.getProjet().getId());
             stmt.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
