@@ -30,7 +30,7 @@ public class ProjetRepoImpl implements ProjetRepository {
         try(PreparedStatement stmt = conn.prepareStatement(query)){
             stmt.setString(1, projet.getNomProjet());
             stmt.setDouble(2, projet.getMargeBeneficiaire());
-            stmt.setObject(3, projet.getClient().getId());
+            stmt.setObject(3, projet.getClient().getId(), java.sql.Types.OTHER);
             ResultSet rs = stmt.executeQuery();
             if(rs.next()){
                 return UUID.fromString(rs.getString("id"));
