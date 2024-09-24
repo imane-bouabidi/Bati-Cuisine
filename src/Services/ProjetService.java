@@ -33,14 +33,10 @@ public class ProjetService {
         return projet;
     }
 
-    public void ajouterMateriau(Projet projet, Materiel materiau) {
-        //projet.ajouterMateriau(materiau);
+    public Projet getProjetById(UUID id) {
+        return projetRepo.getProjetById(id);
     }
 
-    public void ajouterMainOeuvre(Projet projet, MainOeuvre mainOeuvre) {
-
-        //projet.ajouterMainOeuvre(mainOeuvre);
-    }
 
     public void calculerCoutTotal(Projet projet, double tva, double marge) {
         //double coutTotal = projet.calculerCoutTotal(tva, marge);

@@ -40,9 +40,9 @@ public class ClientMenu {
         if(client!=null){
 
             System.out.println("Client trouvé :");
-            System.out.println("Nom: " + clientName);
-            System.out.println("Adresse : 12 Rue des Fleurs, Paris");
-            System.out.println("Numéro de téléphone : 06 12345678");
+            System.out.println("Nom: " + client.getNom());
+            System.out.println("Adresse : " + client.getAdresse());
+            System.out.println("Numéro de téléphone :" + client.getTelephone());
             System.out.print("Souhaitez-vous continuer avec ce client ? (y/n) : ");
             String confirm = scanner.nextLine();
 

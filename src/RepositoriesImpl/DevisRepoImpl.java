@@ -3,6 +3,7 @@ package RepositoriesImpl;
 import Database.DbConnection;
 import Models.Devis;
 import Repositories.DevisRepository;
+import Services.ProjetService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ public class DevisRepoImpl implements DevisRepository {
         this.conn = DbConnection.getInstance().getConnection();
     }
 
-    public static ProjetRepoImpl projetImpl = new ProjetRepoImpl();
+    public static ProjetService projetS = new ProjetService();
 //here
     public void addDevis(Devis devis){
         String query = "insert into devis(montant_estime,date_emission,date_validite,accepte,projet_id) values (?,?,?,?,?)";
@@ -60,19 +61,19 @@ public class DevisRepoImpl implements DevisRepository {
     }
 
 
-    public Devis getDevisById(UUID id){
-        String query = "select * from devis where id = ?";
+    public Devis afficherDevisByProjectId(UUID id){
+        String query = "select d.id as devis_id,montant_estime, date_emission, date_validite, accepte, projet_id from devis as d join projet as p on d.projet_id = p.id where p.id = ?";
         Devis devis = new Devis();
         try(PreparedStatement stmt = conn.prepareStatement(query)){
             stmt.setObject(1, id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){
-                devis.setId(UUID.fromString(rs.getString("id")));
+                devis.setId(UUID.fromString(rs.getString("devis_id")));
                 devis.setMontantEstime(rs.getDouble("montant_estime"));
                 devis.setDateEmission(rs.getDate("date_emission").toLocalDate());
                 devis.setDateValidite(rs.getDate("date_validite").toLocalDate());
                 devis.setAccepte(rs.getBoolean("accepte"));
-                devis.setProjet(projetImpl.getProjetById(UUID.fromString(rs.getString("projet_id"))));
+                devis.setProjet(projetS.getProjetById(UUID.fromString(rs.getString("projet_id"))));
             }
         }catch(SQLException e){
             e.printStackTrace();

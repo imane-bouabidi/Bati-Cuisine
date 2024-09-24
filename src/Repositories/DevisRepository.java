@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface DevisRepository {
-    Devis getDevisById(UUID id);
+    Devis afficherDevisByProjectId(UUID id);
     void addDevis(Devis devis);
     void updateDevis(Devis devis);
     void deleteDevis(UUID devisId);

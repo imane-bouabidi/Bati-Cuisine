@@ -23,7 +23,7 @@ public class Main{
                     displayExistingProjects();
                     break;
                 case 3:
-//                    calculateProjectCost();
+                    afficherDevis();
                     break;
                 case 4:
                     System.out.println("Quitter. Merci d'avoir utilisé l'application !");
@@ -40,7 +40,7 @@ public class Main{
         System.out.println("=== Menu Principal ===");
         System.out.println("1. Créer un nouveau projet");
         System.out.println("2. Afficher les projets existants");
-        System.out.println("3. Calculer le coût d'un projet");
+        System.out.println("3. Afficher le devis d'un projet");
         System.out.println("4. Quitter");
         System.out.print("Choisissez une option : ");
     }
@@ -58,6 +58,10 @@ public class Main{
     }
 
     private static void displayExistingProjects() {
+    }
+
+    private static void afficherDevis() {
+        DevisMenu.getDevisById();
     }
 
 }
