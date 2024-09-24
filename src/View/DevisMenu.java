@@ -1,10 +1,12 @@
 package View;
 import Models.Devis;
+import Models.MainOeuvre;
+import Models.Materiel;
 import Models.Projet;
-import Services.ClientService;
-import Services.DevisService;
+import Services.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -12,6 +14,8 @@ public class DevisMenu {
 
     private static DevisService devisS = new DevisService();
     private static ClientService clientS = new ClientService();
+    private static MainOeuvreService workerS = new MainOeuvreService();
+    private static MaterielService materielS = new MaterielService();
     public static void calculateProjectCost(double coutMateriel, double coutMain, Projet p) {
         Scanner scanner = new Scanner(System.in);
         double coutTotatl = 0;
@@ -30,18 +34,28 @@ public class DevisMenu {
         UUID id = UUID.fromString(pId);
 
         Devis d = devisS.afficherDevis(id);
-        AfficherDevis(d);
+        List<MainOeuvre> wokreks = workerS.returnWorkersByProject(id);
+        List<Materiel> materiels = materielS.returnMaterielsByProject(id);
+        AfficherDevis(d,wokreks,materiels);
     }
 
-    public static void AfficherDevis(Devis d) {
+    public static void AfficherDevis(Devis d, List<MainOeuvre> wokreks, List<Materiel> materiels) {
         System.out.println("-------------------Le devis du projet--------------------");
-        System.out.println("Client :" + clientS.findClientById(d.getProjet().getId()).getNom());
+
+        System.out.println("Client : " + clientS.findClientById(d.getProjet().getId()).getNom());
+
         System.out.println("------Les composants du projet------");
-        System.out.println("----Les materiaux----");
-        System.out.println("");
-        System.out.println("-------------------Le devis du projet--------------------");
-        System.out.println("-------------------Le devis du projet--------------------");
-        System.out.println("-------------------Le devis du projet--------------------");
+
+        System.out.println("----Les matériaux----");
+        double totalMateriels = MaterielMenu.afficherMateriels(materiels);
+        double totalMainOeuvre = MainOeuvreMenu.afficherWorkers(wokreks);
+
+        double coutTotal = totalMateriels + totalMainOeuvre;
+
+        System.out.println("Coût total estimé avant marge et TVA : " + coutTotal + " DH");
+        System.out.println("Date d'émission : " + d.getDateEmission());
+        System.out.println("Date de validité : " + d.getDateValidite());
     }
+
 
 }
