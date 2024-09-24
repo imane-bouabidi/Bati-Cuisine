@@ -29,10 +29,11 @@ public class DevisMenu {
         String pId = scanner.next();
         UUID id = UUID.fromString(pId);
 
-        devisS.afficherDevis(id);
+        Devis d = devisS.afficherDevis(id);
+        AfficherDevis(d);
     }
 
-    public void AfficherDevis(Devis d) {
+    public static void AfficherDevis(Devis d) {
         System.out.println("-------------------Le devis du projet--------------------");
         System.out.println("Client :" + clientS.findClientById(d.getProjet().getId()).getNom());
         System.out.println("------Les composants du projet------");
