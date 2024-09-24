@@ -13,7 +13,7 @@ public class MainOeuvreService {
     public static void addMainOeuvre(MainOeuvre mainOeuvre){
         workerImpl.addMainOeuvre(mainOeuvre);
     }
-    public static List<MainOeuvre> returnWorkersByProject(UUID pId){
+    public List<MainOeuvre> returnWorkersByProject(UUID pId){
      return workerImpl.returnWorkersByProject(pId);
     }
 }

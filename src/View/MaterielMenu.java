@@ -5,6 +5,7 @@ import Models.Projet;
 import Services.MaterielService;
 import enums.TypeComposant;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class MaterielMenu {
@@ -41,4 +42,25 @@ public class MaterielMenu {
         }
     return materialCost;
     }
+
+    public static double afficherMateriels(List<Materiel> materiels){
+        double totalMateriels = materiels.stream()
+                .mapToDouble(materiel -> {
+                    double coutMateriel = (materiel.getCoutUnitaire() * materiel.getQuantite()) + materiel.getCoutTransport() +
+                            (materiel.getCoutUnitaire() * materiel.getQuantite() * materiel.getCoefficientQuantite());
+                    System.out.println("Nom du matériau : " + materiel.getNom());
+                    System.out.println("Quantité : " + materiel.getQuantite());
+                    System.out.println("Coût unitaire : " + materiel.getCoutUnitaire());
+                    System.out.println("Coût de transport : " + materiel.getCoutTransport());
+                    System.out.println("Coefficient de qualité : " + materiel.getCoefficientQuantite());
+                    System.out.println("Coût total de ce matériau : " + coutMateriel);
+                    System.out.println("-------------------");
+                    return coutMateriel;
+                }).sum(); // Somme des coûts des matériaux
+
+        System.out.println("Coût total des matériaux : " + totalMateriels + " DH");
+        return totalMateriels;
+    }
+
+
 }

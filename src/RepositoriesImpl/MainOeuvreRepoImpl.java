@@ -47,6 +47,7 @@ public class MainOeuvreRepoImpl implements MainOeuvreRepository {
         List<MainOeuvre> mainOeuvres = new ArrayList<>();
         String query = "select * from mainoeuvre where projet_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setObject(1, id);
             ResultSet rs = stmt.executeQuery();
             if(rs.next()){
                 MainOeuvre worker = new MainOeuvre(

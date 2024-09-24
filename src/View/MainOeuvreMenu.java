@@ -1,10 +1,12 @@
 package View;
 
 import Models.MainOeuvre;
+import Models.Materiel;
 import Models.Projet;
 import Services.MainOeuvreService;
 import enums.TypeComposant;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class MainOeuvreMenu {
@@ -38,6 +40,25 @@ public class MainOeuvreMenu {
             }
         }
         return coutMainOeuvre;
+    }
+
+    public static double afficherWorkers(List<MainOeuvre> workers){
+
+        System.out.println("----La main-d'oeuvre----");
+        double totalMainOeuvre = workers.stream()
+                .mapToDouble(worker -> {
+                    double coutMainOeuvre = (worker.getTauxHoraire() * worker.getHeurTravail()) +
+                            (worker.getTauxHoraire() * worker.getHeurTravail() * worker.getProductivite());
+                    System.out.println("Taux horaire : " + worker.getTauxHoraire());
+                    System.out.println("Nombre d'heures travaillées : " + worker.getHeurTravail());
+                    System.out.println("Facteur de productivité : " + worker.getProductivite());
+                    System.out.println("Coût total de cette main-d'oeuvre : " + coutMainOeuvre);
+                    System.out.println("-------------------");
+                    return coutMainOeuvre;
+                }).sum();
+
+        System.out.println("Coût total de la main-d'oeuvre : " + totalMainOeuvre + " DH");
+        return totalMainOeuvre;
     }
 
 }
