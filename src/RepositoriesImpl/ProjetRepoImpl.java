@@ -50,7 +50,7 @@ public class ProjetRepoImpl implements ProjetRepository {
 
     public Projet getProjetById(UUID id){
         String query = "select * from projet where id = ?";
-        Projet projet = null;
+        Projet projet = new Projet();
         try(PreparedStatement stmt = conn.prepareStatement(query)){
             stmt.setObject(1, id);
             ResultSet rs = stmt.executeQuery();

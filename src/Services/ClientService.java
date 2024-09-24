@@ -13,6 +13,10 @@ public class ClientService {
 
         return clientimpl.findClientByName(name);
     }
+    public Client findClientById(UUID id){
+
+        return clientimpl.findClientById(id);
+    }
 
     public UUID addClient(Client client){
         return clientimpl.addClient(client);

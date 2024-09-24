@@ -16,5 +16,8 @@ public class DevisService {
     public void addDevis(Devis devis){
         devisImpl.addDevis(devis);
     }
+    public void afficherDevis(UUID id){
+        devisImpl.afficherDevisByProjectId(id);
+    }
 
 }
